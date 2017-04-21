@@ -1,0 +1,9 @@
+<h1>Tweets of {{tweetquery}} </h1>
+<input type="text" class="cash" [(ngModel)]="tweetquery">
+<button (click)="loadTweets()">Load more tweets</button>
+
+
+<div *ngFor="let tweet of tweets">
+	{{ tweet.text }}
+	{{ tweet.created_at | date }}
+</div>
