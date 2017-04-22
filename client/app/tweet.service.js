@@ -11,13 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+//import { AppComponent } from './app.component';
 require("rxjs/add/operator/map");
 var TweetService = (function () {
     function TweetService(http) {
         this.http = http;
     }
+    //constructor(private appComponent: AppComponent) { }
     TweetService.prototype.getTweets = function (query) {
         var tweetsUrl = 'tweets?q=' + query;
+        //this.appComponent.toggleLoading();
         return this.http.get(tweetsUrl)
             .map(function (response) { return JSON.parse(response._body); });
     };

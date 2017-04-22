@@ -11,19 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var tweet_service_1 = require("./tweet.service");
-var mocks_1 = require("./mocks");
 var AppComponent = (function () {
     function AppComponent(tweetService) {
         this.tweetService = tweetService;
         this.tweetquery = 'trump';
+        this.isLoading = false;
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.tweets = mocks_1.TWEETS;
+        //this.tweets = TWEETS;
     };
-    AppComponent.prototype.loadTweets = function () {
+    AppComponent.prototype.userURL = function (user_name) {
+        return "https://twitter.com/" + user_name;
+    };
+    AppComponent.prototype.loadTweets = function (query) {
         var _this = this;
+        this.toggleLoading();
+        if (query)
+            this.tweetquery = query;
         this.tweetService.getTweets(this.tweetquery)
             .subscribe(function (data) { return _this.tweets = data; });
+        var _this = this;
+        setTimeout(function () {
+            _this.toggleLoading();
+        }, 1000);
+    };
+    AppComponent.prototype.toggleLoading = function () {
+        return this.isLoading = !this.isLoading;
     };
     return AppComponent;
 }());

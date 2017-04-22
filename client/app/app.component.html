@@ -1,9 +1,61 @@
-<h1>Tweets of {{tweetquery}} </h1>
-<input type="text" class="cash" [(ngModel)]="tweetquery">
-<button (click)="loadTweets()">Load more tweets</button>
+
+<div *ngIf="isLoading" class="is-loading hero is-primary has-text-centered"><p class="is-loading">LOADING</p></div>
+<section class="hero is-medium is-primary is-bold">
+  	<div class="hero-body">
+    	<div class="container">
+      		<h1 class="title is-1">Twitter and Angular 2</h1>
+    	</div>
+  	</div>
+</section>
+<div class="container">
+	<div class="columns">
+		<div class="column is-quarter">
+		</div>
+	  	<div class="column is-quarter">
+	    	<button (click)="loadTweets('trump')" class="button is-primary is-large is-fullwidth has-text-centered">#trump tweets</button>
+	  	</div>
+	  	<div class="column is-quarter">
+	    	<button (click)="loadTweets('hilary')" class="button is-primary is-large is-fullwidth has-text-centered">#hilary tweets</button>
+	  	</div>
+	  	<div class="column is-quarter">
+		</div>
+	</div>
+	<div class="columns">
+		<div class="column is-quarter">
+		</div>
+	  	<div class="column is-quarter">
+	  		<div class="field">
+  				<p class="control">
+				    <input class="input is-large" type="text" [(ngModel)]="tweetquery">
+				</p>
+			</div>
+	  	</div>
+	  	<div class="column is-quarter">
+	    	<button (click)="loadTweets()" class="button is-primary is-large is-fullwidth has-text-centered">Search</button>
+	  	</div>
+	  	<div class="column is-quarter">
+		</div>
+	</div>
+
+	<div *ngFor="let tweet of tweets" class="box">
+	  	<article class="media">
+	    	<div class="media-left">
+	      		<figure class="image is-64x64">
+	        		<img [src]="tweet.user.profile_image_url" alt="Image">
+	      		</figure>
+	    	</div>
+	    	<div class="media-content">
+	      		<div class="content">
+	       			<p>
+	          			<strong>{{ tweet.user.name }}</strong> <small><a [href]="userURL(tweet.user.screen_name)" target="_blank">@{{ tweet.user.screen_name }}</a></small> <small>{{ tweet.created_at | date }}</small>
+	          		<br>
+	          		<img *ngIf="tweet.entities.media" [src]="tweet.entities.media[0].media_url" />
+	          		{{ tweet.text }}
+	        		</p>
+	      		</div>
+	    	</div>
+	  	</article>
+	</div>
+</div>	
 
 
-<div *ngFor="let tweet of tweets">
-	{{ tweet.text }}
-	{{ tweet.created_at | date }}
-</div>
